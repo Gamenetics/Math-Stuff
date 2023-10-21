@@ -1,0 +1,97 @@
+equation = input("bracket stuff: ")
+abracket = False
+bracket = ""
+operators = ["*","/","-","+"]
+def operation(initial, value, type):
+    value=int(value)
+    if type == "+":
+        return initial+value
+    elif type == "-":
+        return initial-value
+    elif type == "/":
+        return initial//value
+    elif type == "*":
+        return initial*value
+    else: return "ERROR3"
+
+def calculate(aequation):
+    result = 0
+    #calculation = False
+    while True:
+        for op in operators:
+            print(op)
+            if op in aequation:
+                order=op
+                print("eorder",order)
+                break
+            else: 
+                order="done"
+                print("done")
+        if order == "done":
+            print("done? idk 224")
+            break
+        type = "no"
+        for num in aequation:
+            print(aequation,"|||",num)
+            if (num.strip('-')).isnumeric() == True:
+                if type == "no":
+                    result = int(num)
+                    last = num
+                    continue
+                result = operation(result,num,type)
+                for i in range(len(aequation)):
+                    print(aequation[i],aequation[i]==last,last)
+                    print("puruetest", aequation[i],aequation[i+1],aequation[i+2])
+                    if aequation[i+2] == num and aequation[i+1] == type:
+                        aequation[i] = str(result)
+                        aequation.remove(num)
+                        aequation.remove(type)
+                        break
+                print("new", aequation)
+                type = "no"
+                print(result)
+                last = num
+                break
+            elif num == order:
+                type = order
+            else:
+                type = "no"
+                print("error6 wtf happen: ", num)
+    return result
+brackets = []
+
+for a in equation:
+    if a == "(":
+        abracket = True
+        continue
+    elif a == ")":
+        abracket = False
+        print("pog answer:",calculate(bracket.split()))
+        brackets.append(bracket)
+        bracket = ""
+
+    if abracket == True:
+        #adds operators
+        if a in operators:
+            bracket += f" {a} "
+            continue
+        bracket += a
+if abracket == True:
+    print("Error close bracket when?")
+'''print(brackets)
+for equation in brackets:
+    result = 0
+    type = 0
+    equation = equation.split()
+    print(equation)
+    for a in equation:
+        if a.isnumeric() == True:
+            if type == 0:
+                result = int(a)
+                continue
+            result = operation(result,a,type)
+            type = 0
+        elif a in operators:
+            type = operators[a]
+        else: print("error6")
+    print(result)'''
