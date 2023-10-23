@@ -1,97 +1,99 @@
-equation = input("bracket stuff: ")
-abracket = False
+print("Um so like brackets need a operator inside to work idfk")
+equation = input("Equation: ")
+abracket = 0
 bracket = ""
 operators = ["*","/","-","+"]
 def operation(initial, value, type):
-    value=int(value)
-    if type == "+":
+    value=float(value)
+    '''if type == "+":
         return initial+value
     elif type == "-":
         return initial-value
     elif type == "/":
-        return initial//value
+        return initial/value
     elif type == "*":
         return initial*value
-    else: return "ERROR3"
+    else: return "ERROR3"'''
+    match type:
+        case "+":
+            return initial+value
+        case "-":
+            return initial-value
+        case "/":
+            return initial/value
+        case "*":
+            return initial*value
+        case _:
+            return "ERROR3"
 
 def calculate(aequation):
+    print(aequation)
+    if len(aequation) <= 1:
+        return equation
     result = 0
-    #calculation = False
+    loop = 0
     while True:
+        loop +=1
+        print("Loop: ", loop)
         for op in operators:
-            print(op)
             if op in aequation:
                 order=op
-                print("eorder",order)
                 break
             else: 
                 order="done"
-                print("done")
         if order == "done":
-            print("done? idk 224")
             break
         type = "no"
         for num in aequation:
-            print(aequation,"|||",num)
-            if (num.strip('-')).isnumeric() == True:
+            print(aequation)
+            print(num, num.strip('-').replace(".","").isnumeric())
+            if (num.strip('-').replace(".","")).isnumeric() == True:
                 if type == "no":
-                    result = int(num)
+                    result = float(num)
                     last = num
                     continue
                 result = operation(result,num,type)
                 for i in range(len(aequation)):
-                    print(aequation[i],aequation[i]==last,last)
-                    print("puruetest", aequation[i],aequation[i+1],aequation[i+2])
                     if aequation[i+2] == num and aequation[i+1] == type:
                         aequation[i] = str(result)
                         aequation.remove(num)
                         aequation.remove(type)
                         break
-                print("new", aequation)
                 type = "no"
-                print(result)
                 last = num
                 break
             elif num == order:
                 type = order
             else:
                 type = "no"
-                print("error6 wtf happen: ", num)
     return result
-brackets = []
-
 for a in equation:
-    if a == "(":
-        abracket = True
-        continue
-    elif a == ")":
-        abracket = False
-        print("pog answer:",calculate(bracket.split()))
-        brackets.append(bracket)
-        bracket = ""
-
-    if abracket == True:
+    if abracket > 0:
         #adds operators
         if a in operators:
             bracket += f" {a} "
             continue
         bracket += a
-if abracket == True:
+    if a == "(":
+        abracket += 1
+        bracket += a
+        continue
+    elif a == ")":
+        abracket -= 1
+        if abracket == 0:
+            answer = calculate(bracket.replace("(","").replace(")","").split())
+            '''for i in range(len(equation)):
+                if answer[i] == "(":
+                    break'''
+            equation = equation.replace(bracket.replace(" ", ""), str(answer))
+            bracket = ""
+if abracket > 0:
     print("Error close bracket when?")
-'''print(brackets)
-for equation in brackets:
-    result = 0
-    type = 0
-    equation = equation.split()
-    print(equation)
-    for a in equation:
-        if a.isnumeric() == True:
-            if type == 0:
-                result = int(a)
-                continue
-            result = operation(result,a,type)
-            type = 0
-        elif a in operators:
-            type = operators[a]
-        else: print("error6")
-    print(result)'''
+print("After brackets", equation) #WTF ????? ??/ ??\\
+#final answer frfr
+final = ""
+for everything in equation:
+    if everything in operators:
+        final+= f" {everything} "
+    else: final += everything
+print("Final Answer:", calculate(final.split()))
