@@ -16,7 +16,7 @@ def newinput(text, allownothing = False):
 
 print("type nothing when done")
 while True:
-    newdata = newinput("Add new score: ", True)
+    newdata = input("Add new score: ")
     if newdata == "":
         break
     else: 

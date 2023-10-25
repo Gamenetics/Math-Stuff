@@ -1,31 +1,43 @@
 import math
-print("Standard deviation calculator v0.0.0.0.0.0.0.1")
+print("Standard deviation frequency calculator v0.0.0.0.0.0.0.1")
+data = {}
 
-def newinput(text):
+def newinput(text, allownothing = False):
     value = input(text)
-    while value == "":
+    if allownothing == True and value =="": return value
+    while value == "" or value.isnumeric() == False:
       if value == "":
-         print("Value cannot be empty") 
+         print("Value cannot be empty")
+      elif value.isnumeric() == False:
+         print("Value must be a number")
       value = input(text)
     return value
-population = newinput("Data: ").split()
-size = len(population)
-if size <= 1:
-   print("Error low sample")
-for data in range(0, len(population)):
-  population[data] = int(population[data])
-population.sort()
-mean = 0
-for num in population:
-    mean += int(num)
-mean/=size
+
+print("type nothing when done")
+while True:
+    newdata = newinput("Add new score: ",True)
+    if newdata == "":
+        break
+    else: 
+        data[int(newdata)] = int(newinput(f"Set frequency for {newdata}: "))
+print(data)
+
+
+totalfrequecyofvalue = mean = 0
+total = 0
+for num in data:
+    total += data[num]
+    totalfrequecyofvalue += data[num]
+    mean += data[num] * num
+
+mean = mean/total
+
 result = 0
-for num in population:
-    result += (int(num)-mean)**2
-#print(result2)
+for num in data:
+    result += data[num]*(int(num)-mean)**2
 try:
-  print("Mean: ",mean,"\nfinal answer model:sample =", math.sqrt(result/(size-1)), "\n")
+  print("Mean: ",round(mean,3),"\nfinal answer model:sample =", round(math.sqrt(result/(totalfrequecyofvalue-1)),3), "\n")
   #print(result)
-  print("final answer model:population =", math.sqrt(result/size))
+  print("final answer model:population =", round(math.sqrt(result/totalfrequecyofvalue),3))
 except:
   print("errors frfr")

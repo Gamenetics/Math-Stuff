@@ -15,7 +15,7 @@ def newinput(text, allownothing = False):
 
 print("type nothing when done")
 while True:
-    newdata = newinput("Add new score: ", True)
+    newdata = input("Add new score: ")
     if newdata == "":
         break
     else: 
@@ -23,9 +23,9 @@ while True:
 print(data)
 size = len(data)
 
-frequecyofvalue = mean = 0
+totalfrequecyofvalue = mean = 0
 for num in data:
-    frequecyofvalue += data[num] * num
+    totalfrequecyofvalue += data[num] * num
     mean += data[num]
 
-print("Mean: ",frequecyofvalue/mean)
+print("Mean: ",totalfrequecyofvalue/mean)
