@@ -18,7 +18,7 @@ def operation(initial, value, type):
         case "-":
             return initial-value
         case "/":
-            return initial/value
+            return round(initial/value, 2)
         case "*":
             return initial*value
         case _:
@@ -33,6 +33,9 @@ def calculate(aequation):
     loop = 0
     if "(" in aequation:
         aequation = swapbracket(aequation)
+    if isinstance(aequation, str):
+        aequation = aequation.split()
+        print(aequation)
     while True:
         loop +=1
         if loop > 100:
@@ -75,6 +78,7 @@ def calculate(aequation):
 def swapbracket(question):
     bracket = ""
     abracket = 0
+    question = "".join(question)
     for a in question:
         if a == "(":
             if abracket > 0:
@@ -86,10 +90,6 @@ def swapbracket(question):
             if abracket > 0:
                 bracket += f" {a} "
             if abracket == 0:
-                print("old question", question)
-                if isinstance(question, list):
-                    question = "".join(question)
-                    print("new question frfr", question)
                 answer = str("".join(calculate(bracket.split())))
                 print("maincheck:",question, (f"({"".join(bracket.split())})"))
                 question = question.replace(f"({"".join(bracket.split())})", answer)
@@ -105,15 +105,6 @@ def swapbracket(question):
         print("Error close bracket when?")
         return "error"
     print(question)
-    if isinstance(question, str):
-        a = ""
-        for x in question:
-            if x in operators:
-                a += f" {x} "
-                continue
-            a += x 
-        question = a.split()
-    print(question)
     return question
 
 while "(" in equation:
@@ -123,9 +114,15 @@ print("E finalz")
 
 #final answer frfr
 final = ""
-for everything in equation:
+x = ""
+for everything in "".join(equation):
+    print(everything)
+    if everything in operators and x in operators:
+        final += "0"
     if everything in operators:
         final+= f" {everything} "
     else: final += everything
+    x = everything
 print(final, "FINAL")
-print("Question: ",initequity,"\nAnswer:", calculate(final.split()))
+answer="".join(calculate(final.split()))
+print("Question: ",initequity,"\nAnswer:", str(answer))

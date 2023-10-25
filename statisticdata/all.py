@@ -30,5 +30,7 @@ for num in numbers:
   if numbers[num] == numbers[max(numbers, key=numbers.get)]:
      mode += str(num)
 print("Mode:", mode)
-print("Mean:",mean,"\nfinal answer model:sample =", math.sqrt(result/(size-1)))
-print("final answer model:population =", math.sqrt(result/size))
+sample= math.sqrt(result/(size-1))
+pop = math.sqrt(result/size)
+print("Mean:",mean,"\nfinal answer model:sample =",round(sample,3),f"(Variance: {round(sample**2,3)})\n" )
+print("final answer model:population =", round(pop,3), f"(Variance: {round(pop**2,3)})")

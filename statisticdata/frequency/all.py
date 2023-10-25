@@ -1,3 +1,4 @@
+import math
 data = {}
 
 print("frequency full calcualtor frfr")
@@ -34,6 +35,22 @@ for num in data:
 print("Mean: ",frequecyofvalue/mean)
 print("Mode:", mode)
 
+'''
+size = len(data)
+population.sort()
+mean = 0
+for num in population:
+  mean += int(num)
+mean/=size
+result = 0
+for num in population:
+  result += (int(num)-mean)**2
+
+print("Mean: ",mean,"\nfinal answer model:sample =", math.sqrt(result/(size-1)), "\n")
+
+print("final answer model:population =", math.sqrt(result/size))
+'''
+
 datalist = []
 for num in data:
    for x in range(0,data[num]):
@@ -50,7 +67,7 @@ else:
   print("The median is: ",(x+y)/2)
 
 cumulativepercentage = 0
-print("Total:",total)
+print("Total:",total,"\n\n")
 for num in sorted(data.items(), key=lambda x:x[1]):
   percent = round((num[1]/total)*100, 1)
   cumulativepercentage += percent
