@@ -1,9 +1,10 @@
 import math
-population = input("Statisical data math idek calculator v0.0.0.0.0.0.0.1\nData: ").split()
+population = input("Math Statistics calculator v0.0.0.0.0.0.0.1\nData: ").replace(",","").split()
 size = len(population)
 for data in range(0, len(population)):
-  population[data] = int(population[data])
+  population[data] = float(population[data])
 population.sort()
+print("Ordered list: ",population)
 numbers = {}
 for num in population:
     key = str(num)
@@ -13,24 +14,24 @@ for num in population:
        numbers[key] = 1
 mean = 0
 for num in population:
-    mean += int(num)
+    mean += float(num)
 mean/=size
 result = 0
 for num in population:
-    result += (int(num)-mean)**2
+    result += (float(num)-mean)**2
 if size % 2 != 0:
   print("The median is:",population[int(size/2)])
 else: 
-  median = int(size/2)
-  x = int(population[median])
-  y = int(population[median-1])
+  median = float(size/2)
+  x = float(population[median])
+  y = float(population[median-1])
   print("The median is:",(x+y)/2)
-mode = []
+mode = ""
 for num in numbers: 
   if numbers[num] == numbers[max(numbers, key=numbers.get)]:
-     mode += str(num)
+     mode += f"{num} "
 print("Mode:", mode)
 sample= math.sqrt(result/(size-1))
 pop = math.sqrt(result/size)
-print("Mean:",mean,"\nfinal answer model:sample =",round(sample,3),f"(Variance: {round(sample**2,3)})\n" )
-print("final answer model:population =", round(pop,3), f"(Variance: {round(pop**2,3)})")
+print("Mean:",mean,"\nStandard Deviation model:sample =",round(sample,3),f"(Variance: {round(sample**2,3)})\n" )
+print("Standard Deviation model:population =", round(pop,3), f"(Variance: {round(pop**2,3)})")

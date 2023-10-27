@@ -1,7 +1,7 @@
-population = input("Mode calculator v0.0.0.0.0.0.0.1\nData: ").split()
+population = input("Mode calculator v0.0.0.0.0.0.0.1\nData: ").replace(",","").split()
 size = len(population)
 for data in range(0, len(population)):
-  population[data] = int(population[data])
+  population[data] = float(population[data])
 population.sort()
 print(population)
 numbers = {}
