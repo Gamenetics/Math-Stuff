@@ -1,6 +1,6 @@
 import math
 print("Some sort of quadratic equation stuff calcualtor frfr")
-print("Format: ax^2+bx+c=0")
+print("Format: ax^2+bx+c")
 equation = input("Equation: ").replace("^2","").replace("+","").replace("-","")
 
 equation = equation.split("x")
