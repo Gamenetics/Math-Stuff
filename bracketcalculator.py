@@ -1,7 +1,6 @@
-print("real calculator:\nSupporter operators: +, -, /, *, ^")
+print("Model: REAL\nCalculator:\nSupported operators: +, -, /, *, ^")
 equation = initequity = "(" + input("Equation: ") + ")"
-print(equation)
-operators = ["*","/","-","+","^"]
+operators = ["^","*","/","-","+"]
 def operation(initial, value, type):
     value=float(value)
     '''if type == "+":
@@ -19,7 +18,7 @@ def operation(initial, value, type):
         case "-":
             return initial-value
         case "/":
-            return round(initial/value, 2)
+            return initial/value
         case "*":
             return initial*value
         case "^":
@@ -28,16 +27,39 @@ def operation(initial, value, type):
             return "ERROR3"
 
 def calculate(aequation):
-    print(aequation)
+    while "(" in aequation:
+            aequation = swapbracket(aequation)
     if len(aequation) <= 1:
+       
         return aequation
     result = 0
-    loop = 0
-    if "(" in aequation:
-        aequation = swapbracket(aequation)
-        #print("swapping frfr")
     if isinstance(aequation, str):
         aequation = aequation.split()
+    hasop = False
+    negative = False
+    new = ""
+    for x in "".join(aequation):
+        if x == "(" or x == ")":
+             new += f" {x} " 
+             continue
+        if x in operators:
+            if hasop == True and x == "-":
+                hasop = False
+                negative = True
+                continue
+            elif hasop == False:
+                    hasop = True
+            new += f" {x} "
+            continue
+        elif negative == True:
+                negative = False
+                new += f" -{x} "
+                continue 
+        else: 
+            new += x
+            hasop = False
+    aequation = new.split()
+    loop = 0
     while True:
         loop +=1
         if loop > 100:
@@ -55,9 +77,9 @@ def calculate(aequation):
             if (num.strip('-').replace(".","")).isnumeric() == True:
                 if type == "no":
                     result = float(num)
-                    last = num
                     continue
                 result = operation(result,num,type)
+              
                 for i in range(len(aequation)):
                     if aequation[i+2] == num and aequation[i+1] == type:
                         aequation[i] = str(result)
@@ -65,12 +87,15 @@ def calculate(aequation):
                         aequation.remove(type)
                         break
                 type = "no"
-                last = num
+             
                 break
             elif num == order:
                 type = order
+            elif order == "*" and num=="/":
+                  type = "/"
             else:
                 type = "no"
+   
     return aequation
 
 def swapbracket(question):
@@ -90,15 +115,15 @@ def swapbracket(question):
             if abracket > 0:
                 bracket += f" {a} "
             if abracket == 0:
-                print(bracket,bracket.split())
                 answer = str("".join(calculate(bracket.split())))
+          
                 question = question.replace(f"({"".join(bracket.split())})", answer)
-                #print("New question:", question)
+   
+                return question
             continue
         elif abracket > 0:
             #adds operators
             if a in operators:
-                #pls fix this idfk
                 if hasop == True and a == "-":
                     hasop = False
                     negative = True
@@ -110,7 +135,7 @@ def swapbracket(question):
             elif negative == True:
                     negative = False
                     bracket += f" -{a} "
-                    print("negative")
+           
                     continue 
             hasop = False
             bracket += a
@@ -122,18 +147,5 @@ def swapbracket(question):
 
 while "(" in equation:
         equation = swapbracket(equation)
-#print("After brackets", equation)
-#print("E finalz")
-
-#final answer frfr
-final = ""
-x = ""
-for everything in "".join(equation):
-    #print(everything)
-    if everything in operators:
-        final+= f" {everything} "
-    else: final += everything
-    x = everything
-#print(final, "FINAL")
-answer="".join(calculate(final.split()))
-print(initequity,"=", str(answer))
+  
+print("Question:", initequity, "\nAnswer:",equation)
