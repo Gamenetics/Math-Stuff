@@ -1,4 +1,4 @@
-print("Model: REAL\nCalculator:\nSupported operators: +, -, /, *, ^")
+print("REAL Calculator:\nSupported operators: + - / * ^ ( ) ")
 equation = initequity = "(" + input("Equation: ") + ")"
 operators = ["^","*","/","-","+"]
 def operation(initial, value, type):
